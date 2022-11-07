@@ -4,6 +4,8 @@ const SerialResponse = mongoose.Schema({
     mcId: String,
     data: String,
     time: String,
+    serverTime: String,
+    serverDate: String,
     date: String,
     temp1: String,
     temp2: String,

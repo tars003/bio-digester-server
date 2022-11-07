@@ -49,10 +49,15 @@ app.post('/serial-data', async (req, res) => {
             flowVolume
         } = req.body;
 
-        console.log('Serial Reponse : ', req.body);
+        let serObject = req.body;
+
+        serObject['serverDate'] = moment().format('DD-MM-YY');
+        serObject['serverTime'] = moment().format('HH:mm:ss');
+
+        console.log('Serial Reponse : ', serObject);
 
 
-        const serialRes = await SerialResponse.create(req.body);
+        const serialRes = await SerialResponse.create(serObject);
 
         return res.status(200).json({
             success: true,
