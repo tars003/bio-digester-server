@@ -94,7 +94,7 @@ app.get('/get-data/:mcId', async (req, res) => {
 // GET LATEST MICROCONTROLLER SERIAL REPONSES
 app.get('/get-latest/:mcId', async (req, res) => {
     try {
-        const srObj = await SerialResponse.find({mcId: `${req.params.mcId}`}).sort({ _id: 1 }).limit(3);
+        const srObj = await SerialResponse.find({mcId: `${req.params.mcId}`}).sort({ _id: 1 }).limit(1);
         return res.status(200).json({
             success: true,
             count: srObj.length,
