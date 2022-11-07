@@ -51,8 +51,8 @@ app.post('/serial-data', async (req, res) => {
 
         let serObject = req.body;
 
-        serObject['serverDate'] = moment().format('DD-MM-YY');
-        serObject['serverTime'] = moment().format('HH:mm:ss');
+        serObject['serverDate'] = moment().utcOffset("+05:30").format('DD-MM-YY');
+        serObject['serverTime'] = moment().utcOffset("+05:30").format('HH:mm:ss');
 
         console.log('Serial Reponse : ', serObject);
 
