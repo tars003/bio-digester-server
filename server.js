@@ -86,6 +86,24 @@ app.get('/get-data/:mcId', async (req, res) => {
     }
 });
 
+// GET LATEST MICROCONTROLLER SERIAL REPONSES
+app.get('/get-latest/:mcId', async (req, res) => {
+    try {
+        const srObj = await SerialResponse.find({mcId: `${req.params.mcId}`}).sort({ _id: 1 }).limit(3);
+        return res.status(200).json({
+            success: true,
+            count: srObj.length,
+            data: srObj
+        });
+    } catch (err) {
+        console.log('error !', err);
+        return res.status(503).json({
+            success: false,
+            error: err
+        })
+    }
+});
+
 server.listen(process.env.PORT || 3000, () => {
     let port = process.env.PORT || 3000;
     console.log(`listening on localhost:${port}`);
