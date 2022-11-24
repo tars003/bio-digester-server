@@ -38,6 +38,7 @@ app.post('/serial-data', async (req, res) => {
             temp3, 
             temp4, 
             temp5,
+            temp6,
             ph1, 
             ph2, 
             ph3, 

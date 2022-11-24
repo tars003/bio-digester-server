@@ -12,6 +12,7 @@ const SerialResponse = mongoose.Schema({
     temp3: String,
     temp4: String,
     temp5: String,
+    temp6: String,
     ph1: String,
     ph2: String,
     ph3: String,
