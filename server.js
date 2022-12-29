@@ -27,8 +27,29 @@ app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>');
 });
 
+// GET LIST OF ALL UNITS
+app.get('/get-units', async (req, res) => {
+    try {
+        const units = await Unit.find().lean();
+
+        units.map(unit => delete unit.historicData);
+
+        return res.status(200).json({
+            success: true,
+            count: units.length,
+            data: units
+        });
+    } catch (err) {
+        console.log('error !', err);
+        return res.status(503).json({
+            success: false,
+            error: err
+        })
+    }
+});
+
 // GET DATA FROM MICROCOTROLLER
-app.post('/serial-data', async (req, res) => {
+app.post('/v1/serial-data', async (req, res) => {
     try {
         let { 
             mcId, 
@@ -76,7 +97,7 @@ app.post('/serial-data', async (req, res) => {
 });
 
 // GET DATA FROM MICROCOTROLLER
-app.post('/v2/serial-data', async (req, res) => {
+app.post('/serial-data', async (req, res) => {
     try {
         let { 
             mcId
@@ -179,9 +200,12 @@ app.get('/get-latest/:mcId', async (req, res) => {
 // GET LATEST MICROCONTROLLER SERIAL REPONSES
 app.get('/v2/get-latest/:mcId', async (req, res) => {
     try {
-        const srObj = await Unit.findById(req.params.mcId);
+        const srObj = await Unit.findById(req.params.mcId).lean();
+        
         const len = srObj.historicData.length;
-        delete srObj.historicData;
+        
+        delete srObj['historicData'];
+
         return res.status(200).json({
             success: true,
             length: len,
