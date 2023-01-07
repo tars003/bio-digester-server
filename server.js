@@ -118,8 +118,7 @@ app.post('/serial-data', async (req, res) => {
             console.log("updated unit obj");
 
             return res.status(200).json({
-                success: true,
-                data: unitObj
+                success: true
             });
         }
         else {
@@ -127,8 +126,7 @@ app.post('/serial-data', async (req, res) => {
             let newUnit = await Unit.create(serObject);
 
             return res.status(200).json({
-                success: true,
-                data: newUnit
+                success: true
             });
         }
 
